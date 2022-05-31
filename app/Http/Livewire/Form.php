@@ -17,11 +17,17 @@ class Form extends Component
             $file_urls = [],
             $file_departamento,
             $description;
+/* 
+    protected $messages = [
+        'file_urls.required' => 'Es necesario subir un archivo.',
+        'file_urls.img' => 'Debe ser imagen',
+    ]; */
 
     public function save()
     {        
         $this->validate([
-            'file_urls.*' => 'image|max:1024', // 1MB Max
+            'file_urls.*' => 'required|max:5120', 
+            
         ]);  
         if (is_array($this->file_urls) || is_object($this->file_urls))
         { 

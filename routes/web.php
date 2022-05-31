@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/form', function () {
     return view('form');
-})->name("form");
+})->middleware('can:admin')->name("form");
 Route::get('/files', function () {
     return view('viewer');
 })->name("files");

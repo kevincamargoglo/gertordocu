@@ -121,8 +121,24 @@
                                     </span>
                                     <span class="relative">
                                         <button wire:click="openmodal({{$item->id}})" type="button">
-                                            ver
+                                            Ver
                                         </button>
+                                       {{--  @can('admin')
+                                        <button>
+                                            Borrar
+                                        </button>
+                                        <button>
+                                            Editar
+                                        </button>
+                                        @endcan  --}}        
+                                        @role('admin')
+                                        <button>
+                                            Borrar
+                                        </button>
+                                        <button>
+                                            Editar
+                                        </button>
+                                        @endrole                                
                                         
                                     </span>
                                 </span>
