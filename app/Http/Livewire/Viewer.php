@@ -4,14 +4,15 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Files;
-
+use Illuminate\Support\Facades\Storage;
 class Viewer extends Component
 {
     public   
             $collection_name,
             $file_name,
             $file_type,
-            $file_extension,$file_url,
+            $file_extension,
+            $file_url,
             $file_urls = [],
             $file_departamento,
             $description,
@@ -30,14 +31,25 @@ class Viewer extends Component
     public function closemodal()
     {        
         $this->modal=false;
+    }
+    public function download($name)
+    {                
+        return response()->download(storage_path('files\DAj00XXn1jAKq6qyPxWiLbq3S57g5hYDbCnzyhyX.png'));
+    }
+    public function delete($id)
+    {        
         
+        if($id){
+            $data = Files::where('id', $id);
+            $data->delete();
+        }
+        session()->flash('message', 'Registro eliminado con éxito.');
 
     }
 
     public function render()    
     {
-        $data = Files::all();
-        
+        $data = Files::all();        
         return view('livewire.viewer', compact('data'));
     }
     

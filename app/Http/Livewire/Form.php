@@ -42,7 +42,8 @@ class Form extends Component
             'file_name' => $this->file_name,
             'collection_name' => "root",
             'description' => $this->description,
-            'file_departamento' => $this->file_departamento,        
+            'file_departamento' => $this->file_departamento,    
+            
         ]);
 
         $this->file_urls = [];
