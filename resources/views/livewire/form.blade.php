@@ -62,37 +62,51 @@
                 <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Change</button>
               </div>
             </div> --}}
-
+            
             <div>
               <label class="block text-sm font-medium text-gray-700"> Subir archivos </label>
-              <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                <div class="space-y-1 text-center">
-                  <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                  <div class="flex text-sm text-gray-600">
-                    <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                      <span>Subir archivo</span>
-                      <input multiple wire:model="file_urls" id="file-upload" name="file-upload" type="file" class="sr-only">
-                      <div>
-                        @error('photo') <span class="text-sm italic text-red-500">{{ $message }}</span>@enderror
-                    </div>
-                    </label>
-                    <div wire:loading wire:target="file_urls">Subiendo...</div>
-                    <p class="pl-1">or drag and drop</p>
-                  </div>
-                  <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                </div>
-                {{-- @if ($file_url)
-                    Photo Preview:
-                    <img src="{{ $file_url->temporaryUrl() }}">
-                @endif --}}
+              <div wire:ignore 
+                x-data=""
+                x-init="
+                FilePond.registerPlugin(FilePondPluginImagePreview);
+
+                  FilePond.setOptions({
+                    allowMultiple:true,
+                    allowReorder: true,                    
+                    server:{
+                      process:(fieldName, file, metadata, load, error, progress, abort, transfer, option) => {
+                        @this.upload('file_urls', file,  load, error, progress)
+                      },
+                      revert: (filename, load) => {
+                        @this.removeUpload('file_urls',filename, load)
+                      },
+                      load: (source, load, error, progress, abort, headers) => {
+                        var myRequest = new Request(source);
+                        fetch(myRequest).then(function(response) {
+                          response.blob().then(function(myBlob) {
+                            load(myBlob)
+                          });
+                        });
+                    },
+
+                    }
+                  }),                  
+                FilePond.create($refs.input)                
+                "
+              >             
+
+                <input x-red="input" id="filesId" multiple wire:model="file_urls"  type="file" >
+                
+
               </div>
-              <div>
-                <div wire:loading wire:target="file_urls">Subiendo...</div>
-                <div class="row flex flex-wrap">
-                    @if ($file_urls)
-                    Previsualización:
+                           
+              <div class="flex flex-row	justify-center items-center	 ">
+                <div wire:loading wire:target="file_urls">
+                  <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                </div>
+                <div class=" flex flex-wrap">
+                  {{-- Previsualización: --}}
+                    {{-- @if ($file_urls)
                       <div class="row flex flex-wrap ">
                           @foreach ($file_urls as $images)
                           <div class="col-3 card me-1 mb-1 mx-auto object-cover rounded-lg h-40 w-40  border-2 border-white dark:border-gray-800">
@@ -100,7 +114,7 @@
                           </div>
                           @endforeach
                       </div>
-                    @endif
+                    @endif  --}}
                 </div>
               </div>
             </div>
@@ -122,8 +136,14 @@
         </div> 
       </form>
     </div>
-  </div>
-  
+  </div>  
+ 
 </div>
 
+<script>
+
+  const filesId = document.querySelector("#filesId")  
+  console.log(filesId)
+  const pond = FilePond.create(filesId);  
+</script>
 

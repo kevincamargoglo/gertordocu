@@ -7,6 +7,11 @@
 
         <title>{{ config('app.name', 'Gestor documentario') }}</title>
 
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />        
+        <link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"
+/>
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -16,7 +21,48 @@
         @livewireStyles
 
         <!-- Scripts -->
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+
+        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+        
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <style>
+            .lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #c3d600;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #c3d600 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+        </style>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -38,9 +84,11 @@
                 {{ $slot }}
             </main>
         </div>
+        
 
-        @stack('modals')
-            @yield('content')
+
         @livewireScripts
-    </body>
+        @stack('modals')
+            @yield('content')            
+        </body>       
 </html>

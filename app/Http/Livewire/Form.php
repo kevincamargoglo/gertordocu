@@ -16,17 +16,22 @@ class Form extends Component
             $file_extension,$file_url,
             $file_urls = [],
             $file_departamento,
-            $description;
+            $description,
+            $existingImages =false;
 /* 
     protected $messages = [
         'file_urls.required' => 'Es necesario subir un archivo.',
         'file_urls.img' => 'Debe ser imagen',
     ]; */
-
+    public function resetData(){
+        $this->file_urls = [];
+        $this->file_name = "";
+        $this->description="";
+    }
     public function save()
     {        
         $this->validate([
-            'file_urls.*' => 'required|max:5120', 
+            'file_urls.*' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,docx|max:5120', 
             
         ]);  
         if (is_array($this->file_urls) || is_object($this->file_urls))
@@ -36,7 +41,7 @@ class Form extends Component
                 $this->file_urls[$key] = $file_url->store('files', 'public');            
             }
         }
-    $this->file_urls = json_encode($this->file_urls);
+        $this->file_urls = json_encode($this->file_urls);
         Files::create([
             'file_url' => $this->file_urls,
             'file_name' => $this->file_name,
@@ -45,13 +50,10 @@ class Form extends Component
             'file_departamento' => $this->file_departamento,    
             
         ]);
-
-        $this->file_urls = [];
-        $this->file_name = "";
-        $this->file_description="";
-
+        $this->resetData();        
         session()->flash('message', 'Archivo subido con éxito.');
     }
+    
     public function render()
     {
         return view('livewire.form');

@@ -11,5 +11,11 @@
                 @livewire('form')
             </div>
         </div>
-    </div>
+    </div>    
+    
+    @section('script')
+        
+
+    @endsection
+
 </x-app-layout>
