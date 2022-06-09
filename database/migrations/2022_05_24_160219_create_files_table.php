@@ -20,8 +20,11 @@ return new class extends Migration
             $table->string('file_type')->nullable();
             $table->string('file_extension')->nullable();            
             $table->string('file_url')->nullable();            
-            $table->string('file_departamento')->nullable();            
-            $table->string('description')->nullable();                        
+            $table->string('file_departamento')->nullable();                
+            $table->string('created_by_id')->nullable();    
+            $table->string('description')->nullable(); 
+            $table->unsignedBigInteger('folder_id');
+            $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');  
             $table->timestamps();
         });
     }

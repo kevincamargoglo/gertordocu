@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Livewire;
+use Illuminate\Support\Facades\Auth;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Files;
+use App\Models\Folder;
 
 class Form extends Component
 {
@@ -17,8 +19,9 @@ class Form extends Component
             $file_urls = [],
             $file_departamento,
             $description,
+            $folder,
             $existingImages =false;
-/* 
+/*          
     protected $messages = [
         'file_urls.required' => 'Es necesario subir un archivo.',
         'file_urls.img' => 'Debe ser imagen',
@@ -33,25 +36,31 @@ class Form extends Component
         $this->validate([
             'file_urls.*' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp,pdf,docx|max:5120', 
             
-        ]);  
+        ]); 
+
         if (is_array($this->file_urls) || is_object($this->file_urls))
         { 
-
             foreach($this->file_urls as $key => $file_url){
                 $this->file_urls[$key] = $file_url->store('files', 'public');            
             }
         }
         $this->file_urls = json_encode($this->file_urls);
+        
+        
         Files::create([
             'file_url' => $this->file_urls,
             'file_name' => $this->file_name,
             'collection_name' => "root",
             'description' => $this->description,
-            'file_departamento' => $this->file_departamento,    
-            
+            'folder_id' => $this->folder,
+            'created_by_id' => auth()->user()->id,
+            'file_departamento' => $this->file_departamento,                
         ]);
-        $this->resetData();        
+
+        $this->resetData();   
+        
         session()->flash('message', 'Archivo subido con éxito.');
+        $this->emit('some-event');
     }
     
     public function render()

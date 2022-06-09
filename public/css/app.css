@@ -1225,6 +1225,18 @@ select {
 .w-52 {
   width: 13rem;
 }
+.w-64 {
+  width: 16rem;
+}
+.w-2\/6 {
+  width: 33.333333%;
+}
+.w-3\/6 {
+  width: 50%;
+}
+.w-1\/6 {
+  width: 16.666667%;
+}
 .min-w-0 {
   min-width: 0px;
 }
@@ -1391,6 +1403,9 @@ select {
 }
 .rounded-none {
   border-radius: 0px;
+}
+.rounded-2xl {
+  border-radius: 1rem;
 }
 .rounded-l-md {
   border-top-left-radius: 0.375rem;

@@ -19,19 +19,23 @@ class Viewer extends Component
             $modal=false,
             $currentId,
             $currentName,
-            $currentData=[];
+            $currentData=[],
+            $folder,$data;
+          
+    protected $listeners = ['some-event' => '$refresh'];
 
     public function openmodal($id)
     {        
         $this->modal=!$this->modal;
         $this->currentId=$id;
         $this->currentData = Files::find($id);       
-
+        
     }
     public function closemodal()
     {        
-        $this->modal=false;
+        $this->modal = false;
     }
+    
     public function download($name)
     {                
         return response()->download(storage_path('files\DAj00XXn1jAKq6qyPxWiLbq3S57g5hYDbCnzyhyX.png'));
@@ -49,8 +53,10 @@ class Viewer extends Component
 
     public function render()    
     {
-        $data = Files::all();        
-        return view('livewire.viewer', compact('data'));
+        
+        $this->data = Files::where('folder_id',$this->folder)->get() ;
+
+        return view('livewire.viewer');
     }
     
 }

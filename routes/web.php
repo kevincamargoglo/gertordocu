@@ -20,9 +20,22 @@ Route::get('/', function () {
 Route::get('/form', function () {
     return view('form');
 })->middleware('can:admin')->name("form");
+
+
+Route::get('/carpetas/{id}', function ($id) {
+    return view('folderdetail',compact('id'));
+})->name("folderdetail");
+
+Route::get('/carpetas', function () {
+    return view('folders');
+})->middleware('can:admin')->name("folders");
+
+
+
 Route::get('/files', function () {
     return view('viewer');
 })->name("files");
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

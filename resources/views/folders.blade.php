@@ -1,15 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Carpetas') }}
         </h2>
     </x-slot>
 
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @livewire('newfolder')        
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg py-3 px-3">                
-                {{-- @livewire('viewer') --}}
+                @livewire('folders')
             </div>
         </div>
-    </div>
+    </div>    
+    @section('script')        
+
+    @endsection
+
 </x-app-layout>

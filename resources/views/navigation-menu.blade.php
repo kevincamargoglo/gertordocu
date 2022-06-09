@@ -12,12 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('form') }}" :active="request()->routeIs('form')">
-                        {{ __('Formulario') }}
+                    <x-jet-nav-link href="{{ route('folders') }}" :active="request()->routeIs('folders')">
+                        {{ __('Carpetas') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('files') }}" :active="request()->routeIs('files')">
+                    {{-- <x-jet-nav-link href="{{ route('files') }}" :active="request()->routeIs('files')">
                         {{ __('Archivos') }}
-                    </x-jet-nav-link>
+                    </x-jet-nav-link> --}}
                 </div>
             </div>
 

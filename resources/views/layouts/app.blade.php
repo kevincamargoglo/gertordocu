@@ -8,9 +8,8 @@
         <title>{{ config('app.name', 'Gestor documentario') }}</title>
 
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />        
-        <link
-    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-    rel="stylesheet"
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+            rel="stylesheet"
 />
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -76,6 +75,7 @@
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
+                    
                 </header>
             @endif
 
@@ -86,6 +86,7 @@
         </div>
         
 
+        
 
         @livewireScripts
         @stack('modals')

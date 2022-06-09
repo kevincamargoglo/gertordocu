@@ -16,6 +16,11 @@ class Files extends Model
         'file_extension',
         'file_url',
         'file_departamento',
-        'description'
+        'description',
+        'created_by_id',
+        'folder_id'
     ];
+    public function files(){
+        return $this->belongsTo(Folder::class);
+    }
 }
