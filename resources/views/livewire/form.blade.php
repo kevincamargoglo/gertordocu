@@ -93,10 +93,8 @@
                   }),                  
                 FilePond.create($refs.input)                
                 "
-              >             
-
-                <input x-red="input" id="filesId" multiple wire:model="file_urls"  type="file" >
-                
+              >
+                 <input x-red="input" id="filesId" multiple wire:model="file_urls"  type="file" >                
 
               </div>
                            
@@ -118,9 +116,9 @@
                 </div>
               </div>
             </div>
+            @error('file_urls') <span class="error">{{ $message }}</span> @enderror
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            @error('file_urls') <span class="error">{{ $message }}</span> @enderror
             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Guardar</button>
             @if (session()->has('message'))              
                 <div class="bg-green-200 border-green-600 text-green-600 border-l-4 p-4" role="alert">

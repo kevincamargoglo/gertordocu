@@ -8,6 +8,10 @@ use App\Models\Folder;
 class Newfolder extends Component
 {
     public $openModal = false, $nameFolder;
+
+    protected $rules = [
+        'nameFolder' => 'required|min:3',        
+    ];
     
     public function openModal()
     {
@@ -15,6 +19,8 @@ class Newfolder extends Component
     }
     public function saveFolder()
     {
+        $this->validate();
+
         
         Folder::create([
             'name' => $this->nameFolder

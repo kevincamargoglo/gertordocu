@@ -1,46 +1,70 @@
 <div>
-    @if($modal)
-    
+    @if($modal)   
         
-     <x-jet-dialog-modal wire:model="modal">
-        <x-slot name="title">
-            
-            {{$currentData["file_name"]}}
-        </x-slot>
-    
-        <x-slot name="content">
-            <p>
-                Descripción: {{$currentData["description"]}}
-            </p>
-            <p>
-                Área: {{$currentData["file_departamento"]}}
-            </p>
-            <h2>Links:</h2>           
+        <x-jet-dialog-modal wire:model="modal">
+            <x-slot name="title">
                 
-                <ul class="flex justify-center	 ">
-                    @foreach(json_decode($currentData["file_url"]) as $url)
-                        <li >                            
-                            <a href="{{asset('storage/'.$url)}}" target="_blank">                                            
-                                <img src="{{asset('storage/'.$url)}}" alt="photo" class="mx-auto object-content rounded-lg h-40 w-40  border-2 border-white dark:border-gray-800">
-                            </a>
-                        </li>
-                        {{-- <a href="{{asset('storage/'.$url)}}" download>Download File</a>                         --}}
-                    @endforeach
-                </ul>
+                {{$currentData["file_name"]}}
             </x-slot>
+        
+            <x-slot name="content">
+                <p>
+                    Descripción: {{$currentData["description"]}}
+                </p>
+                <p>
+                    Área: {{$currentData["file_departamento"]}}
+                </p>
+                <h2>Archivos:</h2>           
+                    
+                    <div class="flex justify-center gap-8">
+                        @foreach(json_decode($currentData["file_url"]) as $url)                          
+                        <a href="{{asset('storage/'.$url)}}" target="_blank" class="rounded-2xl w-24 p-4 bg-white flex justify-between items-center">                                            
+                            @if(pathinfo(asset('storage/'.$url), PATHINFO_EXTENSION) === 'docx' )
+                                    <img alt="word" src="{{asset('img/resource/word.png')}}" class="mx-auto object-cover h-10 w-10 "/>                                
+                                
+                            @elseif(pathinfo(asset('storage/'.$url), PATHINFO_EXTENSION) === 'png' )
+                                
+                                    <img alt="word" src="{{asset('storage/'.$url)}}" class="mx-auto object-cover h-10 w-10 "/>                                
+                                
+                            @elseif(pathinfo(asset('storage/'.$url), PATHINFO_EXTENSION) === 'pdf' )                                
+                                    <img alt="word" src="{{asset('img/resource/pdf.png')}}" class="mx-auto object-cover h-10 w-10 "/>                                                                                            
+                            @else                                
+                                    <img alt="word" src="{{asset('img/resource/unknow.png')}}" class="mx-auto object-cover h-10 w-10 "/>
+                            @endif                              
+                        </a>
+                        
+
+                            {{-- @if(pathinfo(asset('storage/'.$url), PATHINFO_EXTENSION) === 'png' )
+                                <a href="{{asset('storage/'.$url)}}" target="_blank">                                            
+                                    <img alt="word" src="{{asset('storage/'.$url)}}" class="mx-auto object-cover h-10 w-10 "/>
+                                </a>    
+                            @else
+                                <a href="{{asset('storage/'.$url)}}" target="_blank">                                            
+                                    <img alt="word" src="{{asset('img/resource/pdf.png')}}" class="mx-auto object-cover h-10 w-10 "/>                                
+                                </a>
+                            @endif --}}
+                        {{-- <li >                            
+                                <a href="{{asset('storage/'.$url)}}" target="_blank">                                            
+                                    <img src="{{asset('storage/'.$url)}}" alt="photo" class="mx-auto object-content rounded-lg h-40 w-40  border-2 border-white dark:border-gray-800">
+                                </a>
+                            </li> --}}
+                            {{-- <a href="{{asset('storage/'.$url)}}" download>Download File</a>                         --}}
+                        @endforeach
+                        </div>
+                </x-slot>
+        
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="closemodal" wire:loading.attr="disabled">
+                    Cerrar
+                </x-jet-secondary-button>
+        
+            {{--  <x-jet-danger-button class="ml-2" wire:click="deleteUser" wire:loading.attr="disabled">
+                    Cerrar
+                </x-jet-danger-button> --}}
+            </x-slot>
+        </x-jet-dialog-modal>
     
-        <x-slot name="footer">
-            <x-jet-secondary-button wire:click="closemodal" wire:loading.attr="disabled">
-                Cerrar
-            </x-jet-secondary-button>
-    
-           {{--  <x-jet-danger-button class="ml-2" wire:click="deleteUser" wire:loading.attr="disabled">
-                Cerrar
-            </x-jet-danger-button> --}}
-        </x-slot>
-    </x-jet-dialog-modal>
-    
-          @endif 
+    @endif 
           
 <div class="container mx-auto w-full h-full px-4 sm:px-8">    
     <div class="py-8">
@@ -54,9 +78,37 @@
           </p>
         </div>
     @endif
-        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                <table class="min-w-full leading-normal">
+        <div class="mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div class="min-w-full shadow rounded-lg overflow-hidden flex justify-center flex-wrap gap-4">
+                @foreach ($data as $item)    
+                    <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-900 w-64 m-auto relative">
+                        <a wire:click="openmodal({{$item->id}})" href="#" class="w-full h-full text-center">
+                            <div class="flex h-full flex-col justify-between">
+                                @if(pathinfo(asset('storage/'.$item->file_url), PATHINFO_EXTENSION) === 'docx"]' )
+                                    <img alt="word" src="{{asset('img/resource/word.png')}}" class="mx-auto object-cover h-10 w-10 "/>                                
+                                @elseif(pathinfo(asset('storage/'.$item->file_url), PATHINFO_EXTENSION) === 'png"]' )
+                                    <img alt="word" src="{{asset('img/resource/pic.png')}}" class="mx-auto object-cover h-10 w-10 "/>                                
+                                @elseif(pathinfo(asset('storage/'.$item->file_url), PATHINFO_EXTENSION) === 'pdf"]' )
+                                    <img alt="word" src="{{asset('img/resource/pdf.png')}}" class="mx-auto object-cover h-10 w-10 "/>                                
+                                @else
+                                    <img alt="word" src="{{asset('img/resource/unknow.png')}}" class="mx-auto object-cover h-10 w-10 "/>
+                                @endif
+                                {{-- <p class="absolute text-sm italic dark:text-white text-gray-800 top-2 right-2">
+                                    {{$item->file_departamento}}
+                                </p> --}}
+                                <p class="text-gray-900 dark:text-white text-lg mt-4">
+                                    {{$item->file_name}}
+                                </p>
+                                <p class="dark:text-gray-50 text-gray-700 text-xs font-thin py-2 px-6">
+                                    {{$item->description}}
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+
+
+               {{--  <table class="min-w-full leading-normal">
                     <thead>
                         <tr>
                             <th scope="col" class="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
@@ -107,9 +159,7 @@
                                                 <a href="{{asset('storage/'.$url)}}" target="_blank">
                                                     {{$url}}            
                                                 </a>
-
-                                            </li>
-                                            {{-- <a href="{{asset('storage/'.$url)}}" download>Download File</a>                         --}}
+                                            </li>                                            
                                         @endforeach
                                     </ul>
                                 </p>
@@ -125,19 +175,8 @@
                                     <span class="relative">
                                         <button wire:click="openmodal({{$item->id}})" type="button" class="px-2 py-2  text-base rounded-full text-blue-600  bg-red-200">
                                             Ver
-                                        </button>                                       
-                                       {{--  @can('admin')
-                                        <button>
-                                            Borrar
-                                        </button>
-                                        <button>
-                                            Editar
-                                        </button>
-                                        @endcan  --}}        
-                                        @role('admin')
-                                        {{-- <button wire:click="download({{$item->file_url}})" class="px-4 py-2  text-base rounded-full text-yellow-600  bg-yellow-200">
-                                            Descargar
-                                        </button> --}}
+                                        </button>                                                                                    
+                                        @role('admin')                                       
                                         <button wire:click="delete({{$item->id}})" class="btn px-2 py-2  text-base rounded-full text-red-600  bg-red-200">
                                             Borrar
                                         </button>
@@ -149,7 +188,7 @@
                         </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
             </div>
         </div>
     </div>    
