@@ -20,7 +20,7 @@ class Viewer extends Component
             $currentId,
             $currentName,
             $currentData=[],
-            $folder,$data;
+            $folder,$subfolder,$data;
           
     protected $listeners = ['some-event' => '$refresh'];
 
@@ -54,7 +54,7 @@ class Viewer extends Component
     public function render()    
     {
         
-        $this->data = Files::where('folder_id',$this->folder)->get() ;
+        $this->data = Files::where('folder_id',$this->folder)->where('subfolder_id',$this->subfolder)->get() ;
 
         return view('livewire.viewer');
     }

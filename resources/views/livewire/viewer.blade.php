@@ -80,9 +80,9 @@
     @endif
         <div class="mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
             <div class="min-w-full shadow rounded-lg overflow-hidden flex justify-center flex-wrap gap-4">
-                @foreach ($data as $item)    
-                    <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-900 w-64 m-auto relative">
-                        <a wire:click="openmodal({{$item->id}})" href="#" class="w-full h-full text-center">
+                @foreach ($data as $item)                    
+                    <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-900 w-64 m-auto relative folderAnimation">
+                        <a wire:click="openmodal({{$item->id}})" href="#" class="w-full h-full text-center folderAnimation">
                             <div class="flex h-full flex-col justify-between">
                                 @if(pathinfo(asset('storage/'.$item->file_url), PATHINFO_EXTENSION) === 'docx"]' )
                                     <img alt="word" src="{{asset('img/resource/word.png')}}" class="mx-auto object-cover h-10 w-10 "/>                                

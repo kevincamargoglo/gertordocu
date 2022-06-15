@@ -23,8 +23,9 @@ return new class extends Migration
             $table->string('file_departamento')->nullable();                
             $table->string('created_by_id')->nullable();    
             $table->string('description')->nullable(); 
+            $table->string('subfolder_id')->nullable(); 
             $table->unsignedBigInteger('folder_id');
-            $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');  
+            $table->foreign('folder_id')->references('id')->on('subfolders')->onDelete('cascade');  
             $table->timestamps();
         });
     }

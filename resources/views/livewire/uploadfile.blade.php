@@ -11,7 +11,7 @@
         </x-slot>
     
         <x-slot name="content">
-            @livewire('form',['folder' => $folder])
+            @livewire('form',['folder' => $folder, 'subfolder' => $subfolder])
         </x-slot>
     
         <x-slot name="footer">

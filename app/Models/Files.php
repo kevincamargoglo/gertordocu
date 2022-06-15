@@ -18,9 +18,10 @@ class Files extends Model
         'file_departamento',
         'description',
         'created_by_id',
-        'folder_id'
+        'folder_id',
+        'subfolder_id'
     ];
-    public function files(){
-        return $this->belongsTo(Folder::class);
+    public function subfolder(){
+        return $this->belongsTo(Subfolder::class);
     }
 }

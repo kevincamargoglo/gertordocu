@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class Uploadfile extends Component
 {
-    public $openModal = false, $folder;
+    public $openModal = false, $folder, $subfolder;
     protected $listeners = ['some-event' => 'openModal'];
 
     public function openModal()

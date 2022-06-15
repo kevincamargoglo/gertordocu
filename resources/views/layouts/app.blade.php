@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Gestor documentario') }}</title>
+        <title>Gestor Documentario</title>
 
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />        
         <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
@@ -13,9 +13,12 @@
 />
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="icon" href="{{ url('img/resource/icon.png') }}">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{ mix('css/main.css') }}">
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
 
         @livewireStyles
 
@@ -25,6 +28,7 @@
         <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
         
         <script src="{{ mix('js/app.js') }}" defer></script>
+        
         <style>
             .lds-ring {
   display: inline-block;

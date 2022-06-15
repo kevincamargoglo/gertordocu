@@ -1,4 +1,4 @@
-<div class="container mx-auto w-full h-full px-4 sm:px-8">    
+<div class="container mx-auto w-full  px-4 sm:px-8">    
     <div class="py-8">
         @if (session()->has('message'))              
         <div class="bg-green-200 border-green-600 text-green-600 border-l-4 p-4" role="alert">
@@ -11,9 +11,9 @@
           @endif   
     </div>
             
-            <div class="h-full overflow-y-scroll  w-full rounded-lg flex justify-center flex-wrap gap-4">
+            <div class="h-5/6 overflow-y-scroll  w-full rounded-lg flex justify-center flex-wrap gap-4">
                 @foreach ($data as $item)                        
-                    <a href="{{url('carpetas/'.$item->id)}}" class="border shadow-lg rounded-2xl w-64 p-4 bg-white flex justify-between items-center folderAnimation" >
+                    <a href="{{route('subfolderdetail', ['id'=>$folder,'subid'=>$item->id])}}" class="border shadow-lg rounded-2xl w-64 p-4 folderAnimation bg-white flex justify-between items-center" >
                         <div class="w-2/6">
                             <img src="{{ asset('img/resource/folder.png') }}" alt="">
                         </div>

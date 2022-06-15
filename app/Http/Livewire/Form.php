@@ -20,6 +20,7 @@ class Form extends Component
             $file_departamento,
             $description,
             $folder,
+            $subfolder,
             $existingImages =false;
 /*          
     protected $messages = [
@@ -52,7 +53,8 @@ class Form extends Component
             'file_name' => $this->file_name,
             'collection_name' => "root",
             'description' => $this->description,
-            'folder_id' => $this->folder,
+            'folder_id' => $this->folder,            
+            'subfolder_id' => $this->subfolder,            
             'created_by_id' => auth()->user()->id,
             'file_departamento' => $this->file_departamento,                
         ]);

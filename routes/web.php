@@ -21,6 +21,9 @@ Route::get('/form', function () {
     return view('form');
 })->middleware('can:admin')->name("form");
 
+Route::get('/carpetas/{id}/{subid}', function ($id,$subid) {    
+    return view('subfolderdetail',compact('id','subid'));
+})->name("subfolderdetail");
 
 Route::get('/carpetas/{id}', function ($id) {
     return view('folderdetail',compact('id'));

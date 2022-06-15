@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Folder extends Model
+class Subfolder extends Model
 {
-    use HasFactory;
     protected $fillable = [
-        'name'
+        'name','folder_id'
     ];
-    
-    public function Subfolder(){
-        return $this->hasMany(Subfolder::class);
+    use HasFactory;
+    public function files(){
+        return $this->hasMany(Files::class);
     }
 }
