@@ -18,12 +18,17 @@
                     {{-- <x-jet-nav-link href="{{ route('files') }}" :active="request()->routeIs('files')">
                         {{ __('Archivos') }}
                     </x-jet-nav-link> --}}
+                    @can("admin")
+                        <x-jet-nav-link href="{{ route('user') }}" :active="request()->routeIs('user')">
+                            {{ __('Usuarios') }}
+                        </x-jet-nav-link>                    
+                    @endcan
                 </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
-               {{--  @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                {{-- @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -183,7 +188,7 @@
                 </form>
 
                 <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                {{-- @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="border-t border-gray-200"></div>
 
                     <div class="block px-4 py-2 text-xs text-gray-400">
@@ -211,7 +216,7 @@
                     @foreach (Auth::user()->allTeams() as $team)
                         <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
                     @endforeach
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

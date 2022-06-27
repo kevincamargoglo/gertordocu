@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,15 +31,26 @@ Route::get('/carpetas/{id}', function ($id) {
     return view('folderdetail',compact('id'));
 })->name("folderdetail");
 
-Route::get('/carpetas', function () {
-    return view('folders');
-})->middleware('can:admin')->name("folders");
+
+Route::group(['middleware'=> ['role:admin']], function() {    
+});
+
+Route::get('/usuarios', function () {
+    return view('users');
+})->name("user");
+Route::group(['middleware'=> ['role:admin|cenabast']], function() {    
+    Route::get('/carpetas', function () {
+        return view('folders');
+    })->name("folders");
+});
 
 
-
+/* 
 Route::get('/files', function () {
     return view('viewer');
-})->name("files");
+})->name("files"); */
+
+
 
 Route::middleware([
     'auth:sanctum',
